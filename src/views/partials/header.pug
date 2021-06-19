@@ -1,0 +1,22 @@
+header
+    h1=pageTitle
+    nav
+        ul 
+            li 
+                a(href="/") Home
+            if loggedIn
+                li
+                    a(href="/video/upload") Upload Video
+                li
+                    a(href=`/user/${loggedInUser._id}`) My Profile
+                li 
+                    a(href="/user/edit") Edit Profile
+                li 
+                    a(href="/user/logout") Logout
+            else
+                li
+                    a(href="/join") Join
+                li
+                    a(href="/login") Login
+            li
+                a(href="/search") Search

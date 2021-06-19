@@ -1,0 +1,9 @@
+extends templates/layout
+include mixins/video
+
+block content
+    ul
+        each vData in videos 
+            +video(vData)
+        else
+            li sorry nothing found.

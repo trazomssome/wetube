@@ -1,0 +1,13 @@
+extends templates/layout
+include mixins/video
+
+block content
+    if errorMessage
+        span=errorMessage
+    form(method="POST", enctype="multipart/form-data")
+        lable(for="video") Video File
+        input(type="file", accept="video/*", required, id="video", name="video")
+        input(name="title", placeholder="Video Title", required, type="text", maxlength=80)
+        input(name="description", placeholder="Description", required, type="text", minlength=20)
+        input(name="hashtags", placeholder="Hashtags, separated by comma.", required, type="text")
+        input(type="submit", value="Upload Video")
