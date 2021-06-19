@@ -3,14 +3,23 @@ extends templates/layout
 block content
     video(src="/"+video.fileUrl, controls)
     div
-        p=video.description
-        each hashtag in video.hashtags
-            li=hashtag
-        small=video.createdAt
-    div
-        small Uploaded by 
-            a(href=`/user/${video.owner._id}`)=video.owner.name
-    if String(video.owner._id) === String(loggedInUser._id)
-        a(href=`${video.id}/edit`) Edit Video &rarr; 
-        br
-        a(href=`${video.id}/delete`) Delete Video &rarr; 
+        button#play Play
+        button#mute Mute
+        span#time 00:00/00:00
+        input(type="range", min="0", max="1", step="0.1")#volume
+    //-
+        div
+            p=video.description
+            each hashtag in video.hashtags
+                li=hashtag
+            small=video.createdAt
+        div
+            small Uploaded by 
+                a(href=`/user/${video.owner._id}`)=video.owner.name
+        if String(video.owner._id) === String(loggedInUser._id)
+            a(href=`${video.id}/edit`) Edit Video &rarr; 
+            br
+            a(href=`${video.id}/delete`) Delete Video &rarr; 
+        
+block scripts
+    script(src="/static/js/videoPlayer.js")  

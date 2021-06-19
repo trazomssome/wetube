@@ -2,8 +2,8 @@ extends templates/layout
 include mixins/video
 
 block content
-    ul
-        each vData in videos 
-            +video(vData)
+    div.video-grid 
+        each video in videos
+            +video(video)
         else
-            li sorry nothing found.
+            span.empty__message No videos found 
