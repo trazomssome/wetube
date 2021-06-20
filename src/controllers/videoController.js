@@ -11,7 +11,6 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner");
-  console.log(video);
   if (video === null) {
     return res.render("404", { pageTitle: "Video not found." });
   }
@@ -74,7 +73,7 @@ export const postUpload = async (req, res) => {
     });
     const user = await User.findById(_id);
     user.videos.push(newVideo._id);
-    user.save();
+    await user.save();
     return res.redirect("/");
   } catch (error) {
     return res.status(400).render("upload", {
@@ -109,4 +108,15 @@ export const search = async (req, res) => {
     }).populate("owner");
   }
   return res.render("search", { pageTitle: "Search", videos });
+};
+
+export const registerView = async (req, res) => {
+  const { id } = req.params;
+  const video = await Video.findById(id);
+  if (!video) {
+    return res.sendStatus(404);
+  }
+  video.meta.views = video.meta.views + 1;
+  await video.save();
+  return res.sendStatus(200);
 };
