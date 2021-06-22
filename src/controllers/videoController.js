@@ -68,7 +68,7 @@ export const postUpload = async (req, res) => {
       title,
       description,
       fileUrl: video[0].path,
-      thumbUrl: "/" + thumb[0].destination+thumb[0].filename,
+      thumbUrl: "/" + thumb[0].destination + thumb[0].filename,
       owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });
@@ -93,7 +93,8 @@ export const deleteVideo = async (req, res) => {
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found." });
   }
-  if (String(video.owner) !== _id) {
+  if (String(video.owner) !== String(_id)) {
+    req.flash("error", "Not authorized");
     return res.status(403).redirect("/");
   }
   await Video.findByIdAndDelete(id);

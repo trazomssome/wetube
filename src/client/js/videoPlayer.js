@@ -128,6 +128,7 @@ const handleKeydown = (e) => {
 const handleEnded = (e) => {
   const { id } = videoContainer.dataset;
   fetch(`/api/video/${id}/view`, { method: "POST" });
+  playBtnIcon.classList = "fas fa-play";
 };
 
 playBtn.addEventListener("click", handlePlayClick);
