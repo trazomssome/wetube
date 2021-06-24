@@ -10,7 +10,7 @@ block content
             span=errorMessage
         form(method="POST", enctype="multipart/form-data")
             label(for="video") Video File
-            input#input__file(type="file", accept="video/*", required, id="video", name="video")
+            input(type="file", accept="video/*", required, id="video", name="video")
             label(for="thumb") Thumbnail File
             input(type="file", accept="image/*", required, id="thumb", name="thumb")
             input(placeholder="Title", required, type="text", name="title", maxlength=80)

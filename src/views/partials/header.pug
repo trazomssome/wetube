@@ -1,21 +1,24 @@
 header
     a(href="/").header__ci
         i.fab.fa-youtube
-        span  WeTube
+        span  Premium
     nav
         ul
             li
                  a(href="/search")
-                    i.fas.fa-search
+                    i.fas.fa-search(title="Search")
             if loggedIn
                 li
-                    a(href="/video/upload") Upload Video
+                    a(href="/video/upload")
+                        i.fas.fa-video(title="Upload")
                 li 
-                    a(href="/user/edit") Edit Profile
+                    a(href="/user/edit")
+                        i.fas.fa-user(title="Edit Profile")
                 li 
-                    a(href="/user/logout") Logout
+                    a(href="/user/logout")
+                        i.fas.fa-sign-out-alt(title="Logout")
                 li
-                    a(href=`/user/${loggedInUser._id}`)
+                    a(href=`/user/${loggedInUser._id}`, title="My Channel")
                         if loggedInUser.avatarUrl === ""
                             span 😀
                         else
