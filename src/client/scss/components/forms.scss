@@ -29,8 +29,9 @@ input[type="submit"],
 .social__btn {
   border-radius: 5px;
   padding: 12px 20px;
-  background-color: white !important;
-  color: rgba($color: $red, $alpha: 1) !important;
+  margin: 5px 0px;
+  //background-color: white;
+  //color: rgba($color: $red, $alpha: 1);
   text-align: center !important;
   cursor: pointer;
   display: block;
@@ -42,4 +43,10 @@ input[type="submit"],
     opacity: 0.5;
     pointer-events: none;
   }
+}
+
+input[type="submit"] {
+  background-color: #30363d !important;
+  border: none !important;
+  //color: rgba($color: $red, $alpha: 1) !important;
 }
