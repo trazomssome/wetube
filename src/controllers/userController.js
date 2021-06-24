@@ -147,6 +147,7 @@ export const logout = (req, res) => {
 export const getEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
+
 export const postEdit = async (req, res) => {
   const {
     session: {
@@ -159,7 +160,7 @@ export const postEdit = async (req, res) => {
   const updateUser = await User.findByIdAndUpdate(
     _id,
     {
-      avatarUrl: file ? file.path : avatarUrl,
+      avatarUrl: file ? "/" + file.path : avatarUrl,
       name,
       email,
       username,
@@ -168,7 +169,7 @@ export const postEdit = async (req, res) => {
     { new: true }
   );
   req.session.user = updateUser;
-  return res.redirect("/user/edit");
+  return res.redirect("/");
 };
 
 export const getChangePassword = (req, res) => {
