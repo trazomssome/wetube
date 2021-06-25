@@ -66,4 +66,8 @@ main {
     background-color: tomato;
     color: white;
   }
+  &.complete {
+    background-color: lightgreen;
+    color: white;
+  }
 }

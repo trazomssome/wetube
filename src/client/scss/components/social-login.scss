@@ -3,15 +3,11 @@
   padding-top: 30px;
   margin-top: 30px;
   .social__btn--github {
-    background-color: #9232af;
-    color: azure;
+    background-color: $github-bg;
+    color: $github-font;
   }
   .social__btn--kakaotalk {
-    background-color: #fee500;
+    background-color: $kakao-bg;
     color: black;
-  }
-  .social__btn--naver {
-    background-color: #19ce60;
-    color: white;
   }
 }

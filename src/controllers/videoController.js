@@ -1,7 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
-import session from "express-session";
 
 export const home = async (req, res) => {
   const videos = await Video.find({})
