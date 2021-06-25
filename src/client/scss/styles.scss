@@ -43,7 +43,7 @@ main {
   0% {
     opacity: 0;
   }
-  20% {
+  25% {
     opacity: 1;
   }
   80% {
@@ -64,7 +64,7 @@ main {
   padding: 10px 20px;
   border-radius: 10000px;
   text-align: center;
-  animation: goAway 5s forwards;
+  animation: goAway 3.5s forwards;
   &.error {
     background-color: tomato;
     color: white;

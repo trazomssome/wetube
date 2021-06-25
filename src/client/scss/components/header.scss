@@ -3,6 +3,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid rgba($color: #fff, $alpha: 0.1);
   .header__ci {
     color: $logo;
     font-size: 30px;
