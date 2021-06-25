@@ -217,3 +217,69 @@ export const see = async (req, res) => {
   }
   return res.render("profile", { pageTitle: `${user.name}`, user });
 };
+
+export const startKakaotalkLogin = (req, res) => {
+  const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+  const config = {
+    response_type: "code",
+    client_id: process.env.KT_CLIENT,
+    redirect_uri: "http://localhost:4000/user/kakaotalk/finish",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  return res.redirect(finalUrl);
+};
+
+export const finishKakaotalkLogin = async (req, res) => {
+  const baseUrl = "https://kauth.kakao.com/oauth/token";
+  const config = {
+    grant_type: "authorization_code",
+    client_id: process.env.KT_CLIENT,
+    redirect_uri: "http://localhost:4000/user/kakaotalk/finish",
+    code: req.query.code,
+    client_secret: process.env.KT_SECRET,
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  const tokenRequest = await (
+    await fetch(finalUrl, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+    })
+  ).json();
+  if ("access_token" in tokenRequest) {
+    const { access_token } = tokenRequest;
+    const apiUrl = "https://kapi.kakao.com";
+    const userData = await (
+      await fetch(`${apiUrl}/v2/user/me`, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+    ).json();
+    const { has_email, is_email_verified, email } = userData.kakao_account;
+    if (has_email !== true || is_email_verified !== true) {
+      return res.redirect("/login");
+    }
+    let user = await User.findOne({ email });
+    if (!user) {
+      console.log("make new account");
+      user = await User.create({
+        avatarUrl: userData.kakao_account.profile.profile_image_url,
+        name: userData.kakao_account.profile.nickname,
+        socialOnly: true,
+        username: userData.id,
+        email: userData.kakao_account.email,
+        password: "",
+        location: "Default",
+      });
+    }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    return res.redirect("/");
+  } else {
+    return res.redirect("/login");
+  }
+};

@@ -6,6 +6,10 @@ import {
   see,
   startGithubLogin,
   finishGithubLogin,
+  startKakaotalkLogin,
+  finishKakaotalkLogin,
+  startNaverLogin,
+  finishNaverLogin,
   getChangePassword,
   postChangePassword,
 } from "../controllers/userController";
@@ -25,6 +29,10 @@ userRouter
   .post(avatarUpload.single("avatar"), postEdit);
 userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
 userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
+userRouter.get("/kakaotalk/start", publicOnlyMiddleware, startKakaotalkLogin);
+userRouter.get("/kakaotalk/finish", publicOnlyMiddleware, finishKakaotalkLogin);
+//userRouter.get("/naver/start", publicOnlyMiddleware, startNaverLogin);
+//userRouter.get("/naver/finish", publicOnlyMiddleware, finishNaverLogin);
 userRouter
   .route("/change-password")
   .all(protectorMiddleware)
