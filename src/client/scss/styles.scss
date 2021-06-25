@@ -40,12 +40,16 @@ main {
 }
 
 @keyframes goAway {
-  from {
-    transform: none;
+  0% {
+    opacity: 0;
+  }
+  20% {
     opacity: 1;
   }
-  to {
-    transform: translateY(-50px);
+  80% {
+    opacity: 1;
+  }
+  100% {
     opacity: 0;
   }
 }
@@ -56,18 +60,21 @@ main {
   left: 0;
   right: 0;
   margin: 0 auto;
-  max-width: 200px;
+  max-width: 300px;
   padding: 10px 20px;
   border-radius: 10000px;
   text-align: center;
-  animation: goAway 0.5s forwards;
-  animation-delay: 3s;
+  animation: goAway 5s forwards;
   &.error {
     background-color: tomato;
     color: white;
   }
-  &.complete {
-    background-color: lightgreen;
+  &.ok {
+    background-color: green;
     color: white;
+  }
+  &.info {
+    background-color: white;
+    color: black;
   }
 }

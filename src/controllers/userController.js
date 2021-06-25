@@ -11,18 +11,18 @@ export const postJoin = async (req, res) => {
   const { name, username, email, password, password2, location } = req.body;
   const pageTitle = "Join";
   if (password !== password2) {
+    req.flash("error", "입력된 패스워드가 일치하지 않습니다.");
     return res.status(400).render("join", {
       pageTitle,
-      errorMessage: "Password confirmation does not match.",
     });
   }
   const exists = await User.exists({
     $or: [{ username: req.body.username }, { email }],
   });
   if (exists) {
+    req.flash("error", "이미 가입된 username 혹은 email입니다.");
     return res.status(400).render("join", {
       pageTitle,
-      errorMessage: "This username/email is already taken.",
     });
   }
   try {
@@ -33,8 +33,10 @@ export const postJoin = async (req, res) => {
       password,
       location,
     });
+    req.flash("ok", "가입완료");
     return res.redirect("/login");
   } catch (error) {
+    req.flash("ok", error);
     return res
       .status(400)
       .render("join", { pageTitle: "Join", errorMessage: error._message });
@@ -64,6 +66,7 @@ export const postLogin = async (req, res) => {
   }
   req.session.loggedIn = true;
   req.session.user = user;
+  req.flash("ok", "로그인 되었습니다.");
   return res.redirect("/");
 };
 
@@ -117,6 +120,7 @@ export const finishGithubLogin = async (req, res) => {
       (email) => email.primary === true && email.verified === true
     );
     if (!emailObj) {
+      req.flash("error", "유효한 이메일 정보가 존재하지 않습니다.");
       return res.redirect("/login");
     }
     let user = await User.findOne({ email: emailObj.email });
@@ -133,13 +137,16 @@ export const finishGithubLogin = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
+    req.flash("ok", "로그인 되었습니다.");
     return res.redirect("/");
   } else {
+    req.flash("error", "로그인을 실패하였습니다.");
     return res.redirect("/login");
   }
 };
 
 export const logout = (req, res) => {
+  req.flash("ok", "로그아웃 되었습니다.");
   req.session.destroy();
   res.redirect("/");
 };
@@ -169,6 +176,8 @@ export const postEdit = async (req, res) => {
     { new: true }
   );
   req.session.user = updateUser;
+
+  req.flash("ok", "사용자 정보 수정이 완료되었습니다.");
   return res.redirect("/");
 };
 
@@ -187,19 +196,21 @@ export const postChangePassword = async (req, res) => {
   const user = await User.findById(_id);
   const ok = await bcrypt.compare(oldPassword, user.password);
   if (!ok) {
+    req.flash("error", "현재 패스워드가 일치하지 않습니다.");
     return res.status(400).render("change-password", {
       pageTitle: "Change Password",
-      errorMessage: "The current password is incorrect.",
     });
   }
   if (newPassword !== newPasswordConfirmation) {
+    req.flash("error", "변경하려는 패스워드가 일치하지 않습니다.");
     return res.status(400).render("change-password", {
       pageTitle: "Change Password",
-      errorMessage: "The new password does not match the confirmation.",
     });
   }
   user.password = newPassword;
   await user.save();
+
+  req.flash("ok", "패스워드 변경이 완료되었습니다. 다시 로그인해주세요.");
   return res.redirect("/user/logout");
 };
 
@@ -261,6 +272,7 @@ export const finishKakaotalkLogin = async (req, res) => {
     ).json();
     const { has_email, is_email_verified, email } = userData.kakao_account;
     if (has_email !== true || is_email_verified !== true) {
+      req.flash("error", "유효한 이메일 정보가 존재하지 않습니다.");
       return res.redirect("/login");
     }
     let user = await User.findOne({ email });
@@ -278,8 +290,10 @@ export const finishKakaotalkLogin = async (req, res) => {
     }
     req.session.loggedIn = true;
     req.session.user = user;
+    req.flash("ok", "로그인 되었습니다.");
     return res.redirect("/");
   } else {
+    req.flash("error", "로그인을 실패하였습니다.");
     return res.redirect("/login");
   }
 };

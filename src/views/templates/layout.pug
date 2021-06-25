@@ -6,6 +6,10 @@ html(lang="ko")
     body
         if messages.error 
             +message("error", messages.error)
+        if messages.ok 
+            +message("ok", messages.ok)
+        if messages.info 
+            +message("info", messages.info)
         include ../partials/header
         main
             block content

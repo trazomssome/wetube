@@ -7,18 +7,18 @@ let recorder;
 let videoFile;
 
 const files = {
-  input : "recording.webm",
-  output:"output.mp4",
-  thumbnail:"thumbnail.jpg"
-}
+  input: "recording.webm",
+  output: "output.mp4",
+  thumbnail: "thumbnail.jpg",
+};
 
-const downloadFile = (fileUrl, fileName) =>{
+const downloadFile = (fileUrl, fileName) => {
   const a = document.createElement("a");
   a.href = fileUrl;
   a.download = fileName;
   document.body.appendChild(a);
   a.click();
-}
+};
 
 const handleDownload = async () => {
   actionBtn.removeEventListener("click", handleDownload);
@@ -30,27 +30,18 @@ const handleDownload = async () => {
 
   ffmpeg.FS("writeFile", files.input, await fetchFile(videoFile));
 
-  await ffmpeg.run(
-    "-i",
-    files.input,
-    "-r",
-    "5",
-    "-t",
-    "5",
-    files.output
-  );
+  await ffmpeg.run("-i", files.input, "-r", "5", "-t", "5", files.output);
 
-  await ffmpeg.run("-i", files.input, "-frames:v", "1", files.thumbnail)
+  await ffmpeg.run("-i", files.input, "-frames:v", "1", files.thumbnail);
 
   const mp4File = ffmpeg.FS("readFile", files.output);
-  const thumbFile = ffmpeg.FS("readFile", files.thumbnail); 
+  const thumbFile = ffmpeg.FS("readFile", files.thumbnail);
 
-  const mp4Blob = new Blob([mp4File.buffer], {type:"video/mp4"});
-  const thumbBlob = new Blob([thumbFile.buffer], {type:"image/jpg"});
+  const mp4Blob = new Blob([mp4File.buffer], { type: "video/mp4" });
+  const thumbBlob = new Blob([thumbFile.buffer], { type: "image/jpg" });
 
   const mp4Url = URL.createObjectURL(mp4Blob);
   const thumbUrl = URL.createObjectURL(thumbBlob);
-
 
   downloadFile(mp4Url, "MyRecording.mp4");
   downloadFile(thumbUrl, "MyThumbnail.jpg");
@@ -66,7 +57,7 @@ const handleDownload = async () => {
   init();
   actionBtn.addEventListener("click", handleStart);
   actionBtn.innerText = "Record Again";
-  actionBtn.disabled = false;  
+  actionBtn.disabled = false;
 };
 
 const handleStart = () => {
