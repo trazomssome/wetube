@@ -239,6 +239,7 @@ export const startKakaotalkLogin = (req, res) => {
   };
   const params = new URLSearchParams(config).toString();
   const finalUrl = `${baseUrl}?${params}`;
+  console.log(finalUrl);
   return res.redirect(finalUrl);
 };
 
@@ -248,7 +249,7 @@ export const finishKakaotalkLogin = async (req, res) => {
   const redirectUrl = isHeroku
     ? "https://youtube-clone-trazomssome.herokuapp.com/user/kakaotalk/finish/"
     : "http://localhost:4000/user/kakaotalk/finish";
-
+  console.log(redirectUrl);
   const config = {
     grant_type: "authorization_code",
     client_id: process.env.KT_CLIENT,
