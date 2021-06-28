@@ -232,10 +232,13 @@ export const see = async (req, res) => {
 
 export const startKakaotalkLogin = (req, res) => {
   const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+  const redirectUrl = isHeroku
+    ? "https://youtube-clone-trazomssome.herokuapp.com/user/kakaotalk/finish/"
+    : "http://localhost:4000/user/kakaotalk/finish";
   const config = {
     response_type: "code",
     client_id: process.env.KT_CLIENT,
-    redirect_uri: "http://localhost:4000/user/kakaotalk/finish",
+    redirect_uri: redirectUrl,
   };
   const params = new URLSearchParams(config).toString();
   const finalUrl = `${baseUrl}?${params}`;
