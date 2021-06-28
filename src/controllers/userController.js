@@ -234,7 +234,7 @@ export const startKakaotalkLogin = (req, res) => {
   const baseUrl = "https://kauth.kakao.com/oauth/authorize";
   const isHeroku = process.env.NODE_ENV === "production";
   const redirectUrl = isHeroku
-    ? "https://youtube-clone-trazomssome.herokuapp.com/user/kakaotalk/finish/"
+    ? "https://youtube-clone-trazomssome.herokuapp.com/user/kakaotalk/finish"
     : "http://localhost:4000/user/kakaotalk/finish";
   const config = {
     response_type: "code",
@@ -243,7 +243,7 @@ export const startKakaotalkLogin = (req, res) => {
   };
   const params = new URLSearchParams(config).toString();
   const finalUrl = `${baseUrl}?${params}`;
-  console.log(finalUrl);
+  console.log("1845");
   return res.redirect(finalUrl);
 };
 
@@ -251,7 +251,7 @@ export const finishKakaotalkLogin = async (req, res) => {
   const baseUrl = "https://kauth.kakao.com/oauth/token";
   const isHeroku = process.env.NODE_ENV === "production";
   const redirectUrl = isHeroku
-    ? "https://youtube-clone-trazomssome.herokuapp.com/user/kakaotalk/finish/"
+    ? "https://youtube-clone-trazomssome.herokuapp.com/user/kakaotalk/finish"
     : "http://localhost:4000/user/kakaotalk/finish";
   console.log(redirectUrl);
   const config = {
