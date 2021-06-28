@@ -49,24 +49,6 @@ const deleteComment = (id) => {
   const comment = document.getElementById(id);
 
   comment.parentNode.removeChild(comment);
-
-  //if (response) {
-  //  return location.reload();
-  //}
-  // const videoComments = document.querySelector(".video__comments ul");
-  // const newComment = document.createElement("li");
-  // newComment.dataset.id = id;
-  // newComment.className = "video__comment";
-  // const icon = document.createElement("i");
-  // const span = document.createElement("span");
-  // const span2 = document.createElement("span");
-  // icon.className = "fas fa-comment";
-  // span.innerText = `${text}`;
-  // span2.innerText = "❌";
-  // newComment.appendChild(icon);
-  // newComment.appendChild(span);
-  // newComment.appendChild(span2);
-  // videoComments.prepend(newComment);
 };
 
 const handleDelete = (deleteBtn) => {
