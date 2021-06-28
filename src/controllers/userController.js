@@ -244,10 +244,15 @@ export const startKakaotalkLogin = (req, res) => {
 
 export const finishKakaotalkLogin = async (req, res) => {
   const baseUrl = "https://kauth.kakao.com/oauth/token";
+  const isHeroku = process.env.NODE_ENV === "production";
+  const redirectUrl = isHeroku
+    ? "https://youtube-clone-trazomssome.herokuapp.com/user/kakaotalk/finish/"
+    : "http://localhost:4000/user/kakaotalk/finish";
+
   const config = {
     grant_type: "authorization_code",
     client_id: process.env.KT_CLIENT,
-    redirect_uri: "http://localhost:4000/user/kakaotalk/finish",
+    redirect_uri: redirectUrl,
     code: req.query.code,
     client_secret: process.env.KT_SECRET,
   };
