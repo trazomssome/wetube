@@ -232,6 +232,7 @@ export const see = async (req, res) => {
 
 export const startKakaotalkLogin = (req, res) => {
   const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+  const isHeroku = process.env.NODE_ENV === "production";
   const redirectUrl = isHeroku
     ? "https://youtube-clone-trazomssome.herokuapp.com/user/kakaotalk/finish/"
     : "http://localhost:4000/user/kakaotalk/finish";
