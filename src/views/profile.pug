@@ -7,7 +7,7 @@ block content
         if isHeroku
             img.avatar(src=user.avatarUrl)
         else
-            img.avatar(src=`/${user.avatarUrl}`)
+            img.avatar(src=`${user.avatarUrl}`)
         h3=user.name
     div.video-grid
         each video in user.videos
