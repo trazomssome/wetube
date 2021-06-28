@@ -1,13 +1,13 @@
-import express, { Router } from "express";
+import express from "express";
 import morgan from "morgan";
 import session from "express-session";
 import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
-import userRouter from "../src/routers/userRouter";
-import videoRouter from "../src/routers/videoRouter";
-import apiRouter from "../src/routers/apiRouter";
-import { localsMiddleware } from "../src/middlewares";
+import videoRouter from "./routers/videoRouter";
+import userRouter from "./routers/userRouter";
+import apiRouter from "./routers/apiRouter";
+import { localsMiddleware } from "./middlewares";
 
 const app = express();
 const logger = morgan("dev");
@@ -31,8 +31,8 @@ app.use(localsMiddleware);
 app.use("/uploads", express.static("uploads"));
 app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
-app.use("/user", userRouter);
 app.use("/video", videoRouter);
+app.use("/user", userRouter);
 app.use("/api", apiRouter);
 
 export default app;
