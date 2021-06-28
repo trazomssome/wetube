@@ -107,7 +107,7 @@ export const deleteVideo = async (req, res) => {
     return res.status(403).redirect("/");
   }
   await Video.findByIdAndDelete(id);
-  req.flash("error", "삭제가 완료되었습니다.");
+  req.flash("ok", "삭제가 완료되었습니다.");
   return res.redirect("/");
 };
 
