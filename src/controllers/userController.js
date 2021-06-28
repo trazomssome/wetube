@@ -277,7 +277,6 @@ export const finishKakaotalkLogin = async (req, res) => {
     }
     let user = await User.findOne({ email });
     if (!user) {
-      console.log("make new account");
       user = await User.create({
         avatarUrl: userData.kakao_account.profile.profile_image_url,
         name: userData.kakao_account.profile.nickname,

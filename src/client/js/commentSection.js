@@ -46,7 +46,6 @@ const deleteComment = (id) => {
   const response = fetch(`/api/comment/delete/${id}`, { method: "DELETE" });
 
   const parent = document.querySelector(".video__comments ul");
-  console.log(parent);
   const comment = document.getElementById(id);
 
   comment.parentNode.removeChild(comment);
