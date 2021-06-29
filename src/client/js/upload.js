@@ -1,12 +1,12 @@
+const inputVideo = document.querySelector(".upload__video__videoFile");
+const inputThumbnail = document.querySelector(".upload__video__thumbnailFile");
+const inputSubmit = document.querySelector(".upload__video__submit");
+
 const MB = 1024 * 1024;
 const videoSize = 10 * MB;
 const tumbnailSize = 2 * MB;
 let videoFileCheck = false;
 let thumbnailFileCheck = false;
-
-const inputVideo = document.querySelector(".upload__video__videoFile");
-const inputThumbnail = document.querySelector(".upload__video__thumbnailFile");
-const inputSubmit = document.querySelector(".upload__video__submit");
 
 const handleChangeVideoFile = (event) => {
   if (inputVideo.files[0] && inputVideo.files[0].size > videoSize - 10) {
